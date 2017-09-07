@@ -1,4 +1,5 @@
 'use strict';
+// See for solutions: https://gist.github.com/Rosuav/9d83218d47f95777ada9dcee3262952c
 
 const data = [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 88, 27, 68, 15, 93, 98, 73, 28, 16, 46, 87, 28, 65, 38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 82, 6, 88, 3, 7, 46, 13, 11, 64, 31, 26, 38, 28, 13, 17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5, 76, 62];
 
@@ -127,17 +128,6 @@ bst.insert(44);
 bst.insert(66);
 bst.insert(90);
 bst.insert(22);
-// display in order: recursively left, node, recursively right
-const displayInOrder = (tree) => {
-  if (tree.left) {
-    displayInOrder(tree.left);
-  }
-  console.log(tree.key);
-  if(tree.right) {
-    displayInOrder(tree.right);
-  }
-};
-// displayInOrder(bst);
 // display pre order: root, recursively left, recursively  right
 const displayPreOrder = (tree) => {
   console.log(tree.key);
@@ -161,4 +151,34 @@ const displayPostOrder = (tree) => {
 };
 // displayPostOrder(bst);
 
+// display in order: recursively left, node, recursively right
+const displayInOrder = (tree) => {
+  if (tree.left) {
+    displayInOrder(tree.left);
+  }
+  console.log(tree.key);
+  if(tree.right) {
+    displayInOrder(tree.right);
+  }
+};
+// displayInOrder(bst);
 
+// Exercise 5 ===========================
+
+const stockPrices = [128, 97, 121, 123, 98, 97, 105];
+
+const sellingStocks = (arr) => {
+  let min = arr[0];
+  let maxProfit = 0;
+  for (let i = 0; i<arr.length; i++ ) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+    if (arr[i] - min > maxProfit) {
+      maxProfit = arr[i] - min;
+    }
+  }
+  return maxProfit;
+};
+
+sellingStocks(stockPrices);
