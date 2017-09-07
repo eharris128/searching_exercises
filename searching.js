@@ -128,7 +128,16 @@ bst.insert(66);
 bst.insert(90);
 bst.insert(22);
 // display in order: recursively left, node, recursively right
-
+const displayInOrder = (tree) => {
+  if (tree.left) {
+    displayInOrder(tree.left);
+  }
+  console.log(tree.key);
+  if(tree.right) {
+    displayInOrder(tree.right);
+  }
+};
+// displayInOrder(bst);
 // display pre order: root, recursively left, recursively  right
 const displayPreOrder = (tree) => {
   console.log(tree.key);
@@ -139,6 +148,17 @@ const displayPreOrder = (tree) => {
     displayPreOrder(tree.right);
   }
 };
-displayPreOrder(bst);
+// displayPreOrder(bst);
 // display post order: recursively left, recursively right, root
+const displayPostOrder = (tree) => {
+  if (tree.left) {
+    displayPostOrder(tree.left);
+  }
+  if(tree.right) {
+    displayPostOrder(tree.right);
+  }
+  console.log(tree.key);
+};
+// displayPostOrder(bst);
+
 
