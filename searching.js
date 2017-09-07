@@ -15,7 +15,6 @@ const searchValue = (number, arr) => {
 
 // searchValue(7, data);
 
-
 const sortedData = data.sort(function(a,b) {
   return a - b;
 });
@@ -36,7 +35,6 @@ const binarySearchValue = (number, arr, start=0, end=arr.length) => {
   if (number < middleElement) {
     binarySearchValue(number, arr, start, index-1);
   }
-
   // if num > middle
   if (number > middleElement) {
     binarySearchValue(number, arr, index+1, end);
@@ -44,3 +42,103 @@ const binarySearchValue = (number, arr, start=0, end=arr.length) => {
 };
 
 // binarySearchValue(8, sortedData);
+
+// exercise 3: Dewey ==================
+
+// Go through and find the Hundreds number that matches
+// Go through and find the 10s number that matches
+// Go through and find the ones etc..... 
+// until we find our number. 
+
+const library = [
+  {dewey:'005.133',title:'Mike Cowlishaw: The REXX Language'},
+  '005.133 Mike Cowlishaw: The REXX Language',
+  '005.133 Sams: Teach Yourself C++ In 21 Days',
+  '005.133 Bjarne Stroustrup: The C++ Programming Language',
+  '005.2762 Douglas Crockford: JavaScript: The Good Parts',
+  '005.2762 David Flanagan: JavaScript: The Definitive Guide',
+  '005.44684 Meinhard Schmidt: Windows Vista for Dummies', //It certainly is...
+  '220.52081 Zondervan: NIV Study Bible',
+  '231.7652 Dr Russell Humphries: Starlight and Time',
+  '623.82509051 Frederick Thomas Jane: Jane\'s Fighting Ships', //So far, the ships are winning.
+  '796.8092 Chuck Norris: The Official Chuck Norris Fact Book',
+];
+const dewey = '005.133';
+// const justDewey = library.map(item => item.match(/[0-9]\d*(\.\d+)?/g) );
+
+// console.log(justDewey);
+const findBook = (dewey, library, title) => {
+  // extract the numbers from the library
+  // identify number from array in library
+  // add number to array 
+  // do this multiple times
+  
+  // do a binary sarch on the dewey numbers
+  binarySearchValue(dewey, library, start=0, end=arr.length);
+  // for ( let i= 0; i<deweyNumber.length; i++) {
+  // };
+};
+
+// Exercise 4 ===========================
+
+class BinarySearchTree {
+  constructor(key = null, value = null, parent = null) {
+    this.key = key;
+    this.value = value;
+    this.parent = parent;
+    this.left = null;
+    this.right = null;
+  }
+
+  insert(key, value) {
+    if (this.key == null) {
+      this.key = key;
+      this.value = value;
+    } else if (key < this.key) {
+      if (this.left == null) {
+        this.left = new BinarySearchTree(key, value, this); 
+      } else {
+        this.left.insert(key, value);
+      }
+    } else { // right-side insertion if the incoming key > current node's key
+      if (this.right == null) {
+        this.right = new BinarySearchTree(key, value, this); // if the right-side child doesn't exist, create new node
+      } else {
+        this.right.insert(key, value); // if right-side child does exist, traverse to that child and do insert again
+      }
+    }
+  }
+}
+
+const bst = new BinarySearchTree();
+
+bst.insert(25);
+bst.insert(15);
+bst.insert(50);
+bst.insert(10);
+bst.insert(24);
+bst.insert(35);
+bst.insert(70);
+bst.insert(4);
+bst.insert(12);
+bst.insert(18);
+bst.insert(31);
+bst.insert(44);
+bst.insert(66);
+bst.insert(90);
+bst.insert(22);
+// display in order: recursively left, node, recursively right
+
+// display pre order: root, recursively left, recursively  right
+const displayPreOrder = (tree) => {
+  console.log(tree.key);
+  if (tree.left) {
+    displayPreOrder(tree.left);
+  }
+  if(tree.right) {
+    displayPreOrder(tree.right);
+  }
+};
+displayPreOrder(bst);
+// display post order: recursively left, recursively right, root
+
