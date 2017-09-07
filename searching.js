@@ -44,43 +44,106 @@ const binarySearchValue = (number, arr, start=0, end=arr.length) => {
 
 // binarySearchValue(8, sortedData);
 
-// exercise 3: Dewey ==================
-
-// Go through and find the Hundreds number that matches
-// Go through and find the 10s number that matches
-// Go through and find the ones etc..... 
-// until we find our number. 
+// exercise 3: Dewey ==========================================================================
 
 const library = [
-  {dewey:'005.133',title:'Mike Cowlishaw: The REXX Language'},
-  '005.133 Mike Cowlishaw: The REXX Language',
-  '005.133 Sams: Teach Yourself C++ In 21 Days',
-  '005.133 Bjarne Stroustrup: The C++ Programming Language',
-  '005.2762 Douglas Crockford: JavaScript: The Good Parts',
-  '005.2762 David Flanagan: JavaScript: The Definitive Guide',
-  '005.44684 Meinhard Schmidt: Windows Vista for Dummies', //It certainly is...
-  '220.52081 Zondervan: NIV Study Bible',
-  '231.7652 Dr Russell Humphries: Starlight and Time',
-  '623.82509051 Frederick Thomas Jane: Jane\'s Fighting Ships', //So far, the ships are winning.
-  '796.8092 Chuck Norris: The Official Chuck Norris Fact Book',
+  {
+    author: 'Cowlishaw, Mike',
+    dewey: '005.133',
+    title: 'The REXX Language'
+  },
+  {
+    author: 'Sams',
+    dewey: '005.133',
+    title: 'Teach Yourself C++ In 21 Days'
+  },
+  {
+    author: 'Stroustrup., Bjarne',
+    dewey: '005.133',
+    title: 'The C++ Programming Language'
+  },
+  {
+    author: 'Crockford, Douglas',
+    dewey: '005.2762',
+    title: 'JavaScript: The Good Parts'
+  },
+  {
+    author: 'Flanagan, David',
+    dewey: '005.2762',
+    title: 'JavaScript: The Definitive Guide'
+  },
+  {
+    author: 'Schmidt, Meinhard',
+    dewey: '005.44684',
+    title: 'Windows Vista for Dummies'
+  },
+  {
+    author: 'Zondervan',
+    dewey: '220.52081',
+    title: 'NIV Study Bible'
+  },
+  {
+    author:'Humphries, Russell, Dr.',
+    dewey: '231.7652',
+    title: 'Starlight and Time'
+  },
+  {
+    author: 'Jane, Frederick Thomas',
+    dewey: '623.82509051',
+    title: 'Jane\'s Fighting Ships'
+  },
+  {
+    author: 'Norris, Chuck',
+    dewey: '796.8092',
+    title: 'The Official Chuck Norris Fact Book'
+  }
 ];
-const dewey = '005.133';
-// const justDewey = library.map(item => item.match(/[0-9]\d*(\.\d+)?/g) );
 
-// console.log(justDewey);
-const findBook = (dewey, library, title) => {
-  // extract the numbers from the library
-  // identify number from array in library
-  // add number to array 
-  // do this multiple times
-  
-  // do a binary sarch on the dewey numbers
-  binarySearchValue(dewey, library, start=0, end=arr.length);
-  // for ( let i= 0; i<deweyNumber.length; i++) {
-  // };
+const findBook = (bookDewey, library, title) => {
+// do a binary search for the matching dewey in the library
+// do a binary search for the title?
+  const binarySearchValue = (bookDewey, library, start=0, end= library.length) => {
+    if  (start > end) return -1;
+
+    let index = Math.floor((start + end)/2);
+    let middleElement = library[index];
+
+    if (bookDewey === middleElement['dewey']) {
+      console.log('We found your dewey at: ', index);
+      // go east with a for loop to match title as long as dewey matches
+      if (library[index-1]['dewey'] === bookDewey) {
+        for (let i=index; i >= start; i--) {
+          console.log('did I run in the for loop');
+          if (title === library[i]['title']) {
+            console.log('found the title at ', i);
+          }
+        }
+      }
+      // go west with a for loop as longas dewey matches to find title
+      if (library[index+1]['dewey'] === bookDewey) {
+        for (let i=1; i <= end; i++) {
+          if (title === library[i]['title']) {
+            console.log('found the title at ', i);
+          }
+        }
+      }
+      return index;
+    }
+    
+    if (bookDewey < middleElement.dewey) {
+      binarySearchValue(bookDewey, library, start, index-1);
+    }
+    if (bookDewey > middleElement.dewey) {
+      binarySearchValue(bookDewey, library, index+1, end);
+    }
+  };
+  binarySearchValue(bookDewey, library);
 };
 
-// Exercise 4 ===========================
+const bookDewey = '005.133';
+findBook( bookDewey, library,'The REXX Language');
+
+// Exercise 4 ==================================================
 
 class BinarySearchTree {
   constructor(key = null, value = null, parent = null) {
@@ -163,7 +226,7 @@ const displayInOrder = (tree) => {
 };
 // displayInOrder(bst);
 
-// Exercise 5 ===========================
+// Exercise 5 =======================================================
 
 const stockPrices = [128, 97, 121, 123, 98, 97, 105];
 
